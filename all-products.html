@@ -4,114 +4,100 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Products - Natural Body Oils</title>
-
-  <!-- Keep your original site styles for shared parts -->
   <link rel="stylesheet" href="style.css">
-
-  <!-- Products page overrides, loaded last -->
-  <link rel="stylesheet" href="products.css">
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
-<body class="products-page">
+<body>
 
-  <header class="products-header">
-    <h1>Our Products</h1>
-    <nav>
-      <div class="btn-container">
-      <a href="index.html" class="btn-top">Home</a>
-      <a href="cart.html" class="btn-top">View Cart</a>
-      </div>
-    </nav>
-  </header>
+<!-- HEADER -->
+<header class="navbar">
+  <div class="logo">Natural Body Oils</div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+    <div class="btn-container">
+      <button onclick="toggleInfo()" class="Contacts">Contacts</button>
+    </div>
+    <div id="contactInfo" class="info-box">
+      <h3>Contact Information</h3>
+      <p>Email: support@yourshop.com</p>
+      <p>Phone: +961 71 234 567</p>
+      <p>Address: Beirut, Lebanon</p>
+    </div>
+  </nav>
+</header>
 
-  <main class="products-wrap">
-    <section class="products">
-      <!-- PRODUCT 1 -->
-      <div class="product">
-        <img src="images/argan.webp" alt="Argan Oil">
-        <h3>Argan Oil</h3>
-        <p>Pure Moroccan argan oil for deep hydration.</p>
-        <p class="price">$15</p>
-        <label>Quantity:</label>
-        <input type="number" value="1" min="1">
-        <button data-name="Argan Oil" data-price="15">Add to Cart</button>
-      </div>
-
-      <!-- PRODUCT 2 -->
-      <div class="product">
-        <img src="images/Azalia.webp" alt="Azalia Oil">
-        <h3>Azalia Oil</h3>
-        <p>Natural oil for soft and glowing skin.</p>
-        <p class="price">$30</p>
-        <label>Quantity:</label>
-        <input type="number" value="1" min="1">
-        <button data-name="Azalia Oil" data-price="30">Add to Cart</button>
-      </div>
-
-      <!-- PRODUCT 3 -->
-      <div class="product">
-        <img src="images/lavender.jpg" alt="Lavender Oil">
-        <h3>Lavender Oil</h3>
-        <p>Calming oil for skin and hair care.</p>
-        <p class="price">$20</p>
-        <label>Quantity:</label>
-        <input type="number" value="1" min="1">
-        <button data-name="Lavender Oil" data-price="20">Add to Cart</button>
-      </div>
-       <div class="product">
-        <img src="images/lavender.jpg" alt="Lavender Oil">
-        <h3>Lavender Oil</h3>
-        <p>Calming oil for skin and hair care.</p>
-        <p class="price">$20</p>
-        <label>Quantity:</label>
-        <input type="number" value="1" min="1">
-        <button data-name="Lavender Oil" data-price="20">Add to Cart</button>
-      </div>
+<main class="products-container">
+  <h2>Our Products</h2>
+  <div class="products">
+    <!-- PRODUCT TEMPLATE -->
+    <div class="product">
+      <img src="images/argan.webp" alt="Argan Oil">
+      <h3>Argan Oil</h3>
+      <p>Pure Moroccan argan oil for deep hydration.</p>
+      <p class="price">$15</p>
+      <label>Quantity:</label>
+      <input type="number" value="1" min="1">
+      <button data-name="Argan Oil" data-price="15">Add to Cart</button>
+    </div>
 
     <div class="product">
-        <img src="images/lavender.jpg" alt="Lavender Oil">
-        <h3>Lavender Oil</h3>
-        <p>Calming oil for skin and hair care.</p>
-        <p class="price">$20</p>
-        <label>Quantity:</label>
-        <input type="number" value="1" min="1">
-        <button data-name="Lavender Oil" data-price="20">Add to Cart</button>
-      </div>
+      <img src="images/Azalia.webp" alt="Azalia Oil">
+      <h3>Azalia Oil</h3>
+      <p>Natural oil for soft and glowing skin.</p>
+      <p class="price">$30</p>
+      <label>Quantity:</label>
+      <input type="number" value="1" min="1">
+      <button data-name="Azalia Oil" data-price="30">Add to Cart</button>
+    </div>
 
-     <div class="product">
-        <img src="images/lavender.jpg" alt="Lavender Oil">
-        <h3>Lavender Oil</h3>
-        <p>Calming oil for skin and hair care.</p>
-        <p class="price">$20</p>
-        <label>Quantity:</label>
-        <input type="number" value="1" min="1">
-        <button data-name="Lavender Oil" data-price="20">Add to Cart</button>
-      </div>
-    </section>
-  </main>
+    <div class="product">
+      <img src="images/lavender.jpg" alt="Lavender Oil">
+      <h3>Lavender Oil</h3>
+      <p>Calming oil for skin and hair care.</p>
+      <p class="price">$20</p>
+      <label>Quantity:</label>
+      <input type="number" value="1" min="1">
+      <button data-name="Lavender Oil" data-price="20">Add to Cart</button>
+    </div>
+  </div>
+</main>
 
-  <script>
-    // Add to cart
-    document.querySelectorAll('.product button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const card = btn.closest('.product')
-        const name = btn.getAttribute('data-name')
-        const price = parseFloat(btn.getAttribute('data-price'))
-        const qtyInput = card.querySelector('input[type="number"]')
-        const quantity = Math.max(1, parseInt(qtyInput.value || '1', 10))
+<footer>
+  <p>© 2025 Natural Body Oils. All Rights Reserved.</p>
+</footer>
 
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-        const item = cart.find(i => i.name === name)
-        if (item) {
-          item.quantity += quantity
-        } else {
-          cart.push({ name, price, quantity })
-        }
-        localStorage.setItem('cart', JSON.stringify(cart))
-        alert(quantity + ' x ' + name + ' added to cart')
-      })
-    })
-  </script>
+<script>
+// TOGGLE CONTACT INFO
+function toggleInfo() {
+  const infoBox = document.getElementById("contactInfo");
+  infoBox.classList.toggle("show");
+}
+
+// ADD TO CART FUNCTIONALITY
+document.querySelectorAll('.product button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.product');
+    const name = btn.getAttribute('data-name');
+    const price = parseFloat(btn.getAttribute('data-price'));
+    const qtyInput = card.querySelector('input[type="number"]');
+    const quantity = Math.max(1, parseInt(qtyInput.value || '1', 10));
+
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const item = cart.find(i => i.name === name);
+    if (item) {
+      item.quantity += quantity;
+    } else {
+      cart.push({ name, price, quantity });
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(quantity + ' x ' + name + ' added to cart');
+  });
+});
+</script>
+
 </body>
 </html>
+
