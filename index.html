@@ -17,15 +17,16 @@
             <li><a href="index.html" class="active">Home</a></li>
             <li><a href="all-products.html">All Products</a></li>
             <li><a href="cart.html" class="view-cart">🛒 Cart</a></li>
-            <button onclick="toggleInfo()" class="Contacts">Contacts</button>
-            <div id="contactInfo" class="info-box">
-  <h3>Contact Information</h3>
-  <p>Email: support@yourshop.com</p>
-  <p>Phone: +961 71 234 567</p>
-  <p>Address: Beirut, Lebanon</p>
-</div>
-            
         </ul>
+        <div class="btn-container">
+            <button onclick="toggleInfo()" class="Contacts">Contacts</button>
+        </div>
+        <div id="contactInfo" class="info-box">
+            <h3>Contact Information</h3>
+            <p>Email: support@yourshop.com</p>
+            <p>Phone: +961 71 234 567</p>
+            <p>Address: Beirut, Lebanon</p>
+        </div>
     </nav>
 </header>
 
@@ -85,6 +86,11 @@
     </div>
 </section>
 
+<!-- FOOTER -->
+<footer>
+    <p>© 2025 Natural Body Oils. All Rights Reserved.</p>
+</footer>
+
 <script>
 // ADD TO CART FUNCTIONALITY
 const buttons = document.querySelectorAll('.add-to-cart');
@@ -94,14 +100,12 @@ buttons.forEach(button => {
         const price = parseFloat(button.getAttribute('data-price'));
         
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
         const existingItem = cart.find(item => item.name === name);
         if (existingItem) {
             existingItem.quantity += 1;
         } else {
             cart.push({ name: name, price: price, quantity: 1 });
         }
-
         localStorage.setItem('cart', JSON.stringify(cart));
         alert(`${name} added to cart!`);
     });
@@ -118,19 +122,14 @@ const appearOnScroll = new IntersectionObserver((entries, observer) => {
     });
 }, appearOptions);
 faders.forEach(fader => appearOnScroll.observe(fader));
-  function toggleInfo() {
-    const infoBox = document.getElementById("contactInfo");
-    if (infoBox.style.display === "block") {
-      infoBox.style.display = "none";
-    } else {
-      infoBox.style.display = "block";
-    }
-  }
+
+// TOGGLE CONTACT INFO
 function toggleInfo() {
     const infoBox = document.getElementById("contactInfo");
     infoBox.classList.toggle("show");
-  }
+}
 </script>
 
 </body>
 </html>
+
