@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- BANNER -->
+<section class="cart-banner">
+    <h1>Your Cart</h1>
+    <p>"Good oils, good vibes — your natural journey starts here."</p>
+    <a href="index.html" class="back-shop">← Back to Shop</a>
+</section>
+
+<main>
+    <!-- CART ITEMS -->
+    <section class="cart-items">
+        <h2>Products in Your Cart</h2>
+        <div id="cart-list"></div>
+        <p id="total-price"></p>
+    </section>
+
+    <!-- CHECKOUT FORM -->
+    <section class="order-form">
+        <h2>Checkout</h2>
+        <form id="checkout-form" action="https://formspree.io/f/xwpqaeby" method="POST">
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="John Doe" required>
+
+            <label>Phone Number</label>
+            <input type="text" name="phone" placeholder="+1 234 567 890" required>
+
+            <label>Delivery Address</label>
+            <textarea name="address" placeholder="Street, City, Country" required></textarea>
+
+            <input type="hidden" name="cart" id="cart-data">
+            <input type="hidden" name="payment" value="Cash on Delivery">
+
+            <button type="submit">Place Order</button>
+        </form>
+    </section>
+</main>
+
+<script>
+// RENDER CART ITEMS
+function renderCart() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cartList = document.getElementById('cart-list');
+    let totalPrice = 0;
+    cartList.innerHTML = '';
+
+    if(cart.length === 0){
+        cartList.innerHTML = "<p>Your cart is empty.</p>";
+    }
+
+    cart.forEach((item, index) => {
+        let itemTotal = (item.price * item.quantity).toFixed(2);
+        totalPrice += parseFloat(itemTotal);
+
+        let div = document.createElement('div');
+        div.classList.add('cart-item');
+        div.innerHTML = `
+            <span>${item.quantity} x ${item.name} - $${itemTotal}</span>
+            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+        `;
+        cartList.appendChild(div);
+    });
+
+    document.getElementById('total-price').textContent = "Total: $" + totalPrice.toFixed(2);
+    document.getElementById('cart-data').value = JSON.stringify(cart);
+}
+
+// REMOVE ITEM FROM CART
+function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+}
+
+// HANDLE CHECKOUT
+document.getElementById('checkout-form').addEventListener('submit', function() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if(cart.length === 0){
+        alert("Your cart is empty!");
+        event.preventDefault();
+        return;
+    }
+
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+    orders.push({ date: new Date().toLocaleString(), items: cart });
+    localStorage.setItem('orders', JSON.stringify(orders));
+
+    localStorage.removeItem('cart');
+    alert("Order placed successfully!");
+});
+
+renderCart();
+</script>
+
+</body>
+</html>
