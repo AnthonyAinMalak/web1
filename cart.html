@@ -8,6 +8,27 @@
 </head>
 <body>
 
+<!-- HEADER -->
+<header class="navbar">
+    <div class="logo">Natural Body Oils</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="all-products.html">All Products</a></li>
+            <li><a href="cart.html" class="active">🛒 Cart</a></li>
+        </ul>
+        <div class="btn-container">
+            <button onclick="toggleInfo()" class="Contacts">Contacts</button>
+        </div>
+        <div id="contactInfo" class="info-box">
+            <h3>Contact Information</h3>
+            <p>Email: support@yourshop.com</p>
+            <p>Phone: +961 71 234 567</p>
+            <p>Address: Beirut, Lebanon</p>
+        </div>
+    </nav>
+</header>
+
 <!-- BANNER -->
 <section class="cart-banner">
     <h1>Your Cart</h1>
@@ -44,7 +65,17 @@
     </section>
 </main>
 
+<footer>
+    <p>© 2025 Natural Body Oils. All Rights Reserved.</p>
+</footer>
+
 <script>
+// TOGGLE CONTACT INFO
+function toggleInfo() {
+    const infoBox = document.getElementById("contactInfo");
+    infoBox.classList.toggle("show");
+}
+
 // RENDER CART ITEMS
 function renderCart() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -82,7 +113,7 @@ function removeItem(index) {
 }
 
 // HANDLE CHECKOUT
-document.getElementById('checkout-form').addEventListener('submit', function() {
+document.getElementById('checkout-form').addEventListener('submit', function(event) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     if(cart.length === 0){
         alert("Your cart is empty!");
