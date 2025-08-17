@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Body Oils - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="navbar">
+    <div class="logo">Natural Body Oils</div>
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="all-products.html">All Products</a></li>
+            <li><a href="cart.html" class="view-cart">🛒 Cart</a></li>
+            <button onclick="toggleInfo()" class="Contacts">Contacts</button>
+            <div id="contactInfo" class="info-box">
+  <h3>Contact Information</h3>
+  <p>Email: support@yourshop.com</p>
+  <p>Phone: +961 71 234 567</p>
+  <p>Address: Beirut, Lebanon</p>
+</div>
+            
+        </ul>
+    </nav>
+</header>
+
+<!-- HERO BANNER -->
+<section class="hero">
+    <div class="hero-text">
+        <h1>Premium Natural Body Oils</h1>
+        <p>Pure, organic, and made for glowing skin and healthy hair.</p>
+        <a href="all-products.html" class="btn">Shop Now</a>
+    </div>
+</section>
+
+<!-- WHY US SECTION -->
+<section class="why-us fade-in">
+    <h2>Why Choose Us</h2>
+    <div class="why-grid">
+        <div class="why-card">
+            <h3>Natural Ingredients</h3>
+            <p>We use only pure, plant-based oils for maximum skin benefits.</p>
+        </div>
+        <div class="why-card">
+            <h3>Cruelty-Free</h3>
+            <p>No animal testing. All products are ethically sourced.</p>
+        </div>
+        <div class="why-card">
+            <h3>Eco-Friendly</h3>
+            <p>We use sustainable packaging that is 100% recyclable.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS SECTION -->
+<section class="products-container fade-in">
+    <h2>Best Selling</h2>
+    <div class="products">
+        <div class="product">
+            <img src="images/argan.webp" alt="Lavender Oil">
+            <h3>Lavender Oil</h3>
+            <p>Calming and soothing for skin and hair.</p>
+            <p class="price">$19.99</p>
+            <button class="add-to-cart" data-name="Lavender Oil" data-price="19.99">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="images/Azalia.webp" alt="Argan Oil">
+            <h3>Argan Oil</h3>
+            <p>Rich in nutrients for shiny hair and soft skin.</p>
+            <p class="price">$24.99</p>
+            <button class="add-to-cart" data-name="Argan Oil" data-price="24.99">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="images/product3.jpg" alt="Rosehip Oil">
+            <h3>Rosehip Oil</h3>
+            <p>Promotes healthy skin and reduces scars.</p>
+            <p class="price">$22.50</p>
+            <button class="add-to-cart" data-name="Rosehip Oil" data-price="22.50">Add to Cart</button>
+        </div>
+    </div>
+</section>
+
+<script>
+// ADD TO CART FUNCTIONALITY
+const buttons = document.querySelectorAll('.add-to-cart');
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const name = button.getAttribute('data-name');
+        const price = parseFloat(button.getAttribute('data-price'));
+        
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        const existingItem = cart.find(item => item.name === name);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ name: name, price: price, quantity: 1 });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${name} added to cart!`);
+    });
+});
+
+// FADE-IN ON SCROLL
+const faders = document.querySelectorAll('.fade-in');
+const appearOptions = { threshold: 0.2 };
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('appear');
+        observer.unobserve(entry.target);
+    });
+}, appearOptions);
+faders.forEach(fader => appearOnScroll.observe(fader));
+  function toggleInfo() {
+    const infoBox = document.getElementById("contactInfo");
+    if (infoBox.style.display === "block") {
+      infoBox.style.display = "none";
+    } else {
+      infoBox.style.display = "block";
+    }
+  }
+function toggleInfo() {
+    const infoBox = document.getElementById("contactInfo");
+    infoBox.classList.toggle("show");
+  }
+</script>
+
+</body>
+</html>
